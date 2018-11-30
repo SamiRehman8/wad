@@ -19,7 +19,32 @@ var questions = [{
         "for",
         "none of the above"],
     correctAnswer : 1
-}];
+},
+
+    {
+        question : "who is president of khursheed construction buisness",
+        choices : [ "select",
+            "kammo",
+            "kamini",
+            "khursheed himself"],
+        correctAnswer : 1
+    }
+
+
+    ,
+
+    {
+        question : "best desi nashta in lahore",
+        choices : [ "select",
+            "sadiq halwa poori",
+            "phaja siri paye",
+            "poori poora johar town"],
+        correctAnswer : 1
+    }
+
+
+
+];
 
 var currentQuestion = 0;
 var correctAnswers = 0;
@@ -27,10 +52,66 @@ var quizOver = false;
 displayCurrentQuestion();
 document.getElementById("quiz-message").style.display = 'none';
 function displayNext() {
+
+
     /*Write your code here */
+
+    if(currentQuestion<=5)
+    {
+        var x=document.querySelector("input[type=radio]:checked");
+        if(x==null)
+        {
+            var mess=document.getElementById("quiz-message");
+            mess.style.display="inline";
+            mess.innerText='please select an answer';
+            var ChoiceListid=document.getElementById("choice-list");
+            ChoiceListid.innerHTML='';
+        }
+        else if (currentQuestion<5){
+            if(x.id==questions[currentQuestion].correctAnswer)
+            {
+                correctAnswers++;
+            }
+            var ChoiceListid=document.getElementById("choice-list");
+            ChoiceListid.innerHTML='';
+            currentQuestion++;
+        }
+        if(currentQuestion!=5) {
+            displayCurrentQuestion();
+        }
+        else
+        {
+            displayScore();
+            var mess=document.getElementById("quiz-message");
+            mess.style.display="none";
+            currentQuestion++;
+            var Next = document.getElementById("next-btn");
+            Next.innerText='Reset';
+        }
+
+    }
+    else {
+        resetQuiz();
+
+    }
+
+
+
+
+
+
 }
 
 function displayCurrentQuestion() {
+    var questionid=document.getElementById("question");
+    questionid.innerHTML='<p>'+questions[currentQuestion].question+'<p>';
+    var ChoiceListid=document.getElementById("choice-list");
+    for(var x=0;x<questions[currentQuestion].choices.length;x++)
+    {
+        ChoiceListid.innerHTML += '<li>'+'<input id="'+x+'" type="radio" name="ch">'+ questions[currentQuestion].choices[x] +'</li>';
+    }
+
+
     /*Write your code here */
 }
 
